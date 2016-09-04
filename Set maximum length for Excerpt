@@ -1,0 +1,5 @@
+<?php $excerpt = get_the_content();
+$excerpt = strip_shortcodes($excerpt);
+$excerpt = strip_tags($excerpt);
+$the_str = substr($excerpt, 0, 100);
+echo "<p>".$the_str."</p>"; ?>
