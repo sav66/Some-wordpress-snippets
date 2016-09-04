@@ -1,0 +1,11 @@
+Welcome to the Wordpress-Woocommerce-Sort-by-category-snippet wiki!
+
+Below is the snippet if you ever want to sort by category:
+
+Add this snippet in your theme functions.php file, and it will automatically add the option for sorting by cateogry in woocommerce plugin of wordpress.
+
+function custom_woocommerce_get_catalog_ordering_args( $args ) { if (isset($_SESSION['orderby'])) { if($_SESSION['orderby']) { $args['orderby'] = 'category'; } } return $args; }
+
+add_filter('woocommerce_catalog_orderby', 'custom_woocommerce_catalog_orderby');
+
+function custom_woocommerce_catalog_orderby( $sortby ) { $sortby['category'] = 'Sort by category'; return $sortby; }
