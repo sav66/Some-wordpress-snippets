@@ -1,0 +1,19 @@
+$args = array(
+        'role' => 'Author'
+);
+// The Query
+$user_query = new WP_User_Query( $args );
+
+// User Loop
+if ( ! empty( $user_query->results ) ) {
+        foreach ( $user_query->results as $user ) {
+                echo get_avatar($user->ID);
+
+                echo '<p><a href="'.home_url().'/author/'.$user->user_nicename.'">' . $user->display_name . '</a></p>';
+
+                $description = get_user_meta($user->ID, 'description', true);
+                echo "<p>Bio: $description</p>";
+        }
+} else {
+        echo 'No users found.';
+}
