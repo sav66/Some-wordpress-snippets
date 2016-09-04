@@ -1,0 +1,20 @@
+How to change WordPress admin and login page logo?
+
+function my_custom_login_logo() {
+    echo '<style type="text/css">
+        h1 a { background-image:url('.get_bloginfo('template_url').'/images/login_page_logo.png) !important; }
+    </style>';
+}
+
+add_action('login_head', 'my_custom_login_logo');
+
+To change the WordPress Admin area logo (the one which located in the top left side of your Admin panel) then simply add following code to your theme’s functions.php file. Again, Don’t forget to change the logo location in line 3.
+
+
+function custom_logo() {
+  echo '<style type="text/css">
+    #header-logo { background-image: url('.get_bloginfo('template_directory').'/images/admin_page_logo.png) !important; }
+    </style>';
+}
+
+add_action('admin_head', 'custom_logo');
