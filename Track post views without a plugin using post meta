@@ -1,0 +1,44 @@
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0 View";
+    }
+    return $count.' Views';
+}
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+// Remove issues with prefetching adding extra views
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0); 
+
+Step 1.
+
+This part of the tracking views snippet will set the post views. Just place this snippet below within the single.php inside the wordpress loop.
+
+snippet :  PHP - single.phpcopy
+
+<?php
+          setPostViews(get_the_ID());
+?>
+
+Step 2.
+
+The snippet below is optional, so use this if you would like to display the number of views within your posts. Place this snippet within the loop.
+snippet :  PHP - single.php / index.phpcopy
+
+<?php 
+          echo getPostViews(get_the_ID());
+?>
